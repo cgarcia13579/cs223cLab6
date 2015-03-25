@@ -1,0 +1,33 @@
+You will harness your newfound powers over file I/O and the qsort() function to make the word-counting program from Lab 5 significantly more efficient.
+
+Recall thatyou wrote a program that computed how many times each word in a text file occurs, then printed that information to stdout. You used an unordered array or linked list to track the words, so if a file has n tokens, updating each token takes O(n) time so processing the entire file takes O(n^2) time.
+
+Now you will write a program that performs the same task, but faster. It will use the following algorithm:
+
+    Read through the file, counting how many tokens it contains: O(n) time.
+    Read through the file a second time, storing each token in a heap-allocated array of strings: O(n) time.
+    Sort the tokens using qsort(): O(n log n) expected time.
+    Loop through the sorted token array, identifying each distinct word and how many times it occurs: O(n) time.
+
+In step 4, the tokens are in sorted alphabetical order, which makes it possible to group the distinct word strings and count their occurences in a single O(n)-time loop. Suppose the token array stores:
+
+"a"
+"a"
+"a"
+"be"
+"cat"
+"cat"
+"dog"
+
+Step 4 involves using a loop to translate this into
+
+"a" : 3
+"be" : 1
+"cat" : 2
+"dog" : 1
+
+This algorithm is more complex conceptually, and makes multiple passes over the input. However an asymptotic analysis says it takes O(n+n+n log n + n) = O(n log n) time, which is significantly faster than the O(n^2) time bound of the simpler algorithm from Lab 5. So, this week's program should be significantly faster than the last one, despite its code being longer and more complicated.
+
+I have supplied you with a main.c and wordhist.h that you should leave unchanged. wordhist.c is a "stub" that has several sections marked with TODO comments. Your task is to replace the TODO sections with working C code. The comments contain some additional hints. I also supplied the same text input files from Lab 5, and the output of my solution code for each. You can compare your program's code against these outputs to help in debugging.
+
+When you are finished, submit your modified wordhist.c.
